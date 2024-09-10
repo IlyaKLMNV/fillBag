@@ -1,6 +1,12 @@
 function fillBag(balls, capacity) {
     // Начальные переменные
     const totalBalls = balls.reduce((sum, count) => sum + count, 0); // Всего шаров на складе
+
+    // Если шаров на складе меньше, чем вместимость мешка, грабитель берет все шары
+    if (totalBalls <= capacity) {
+        return balls; // Возвращаем весь массив, так как грабитель заберет всё
+    }
+
     const proportions = balls.map(count => count / totalBalls); // Пропорции шаров
     let bag = new Array(balls.length).fill(0); // Шары в мешке (массив на выходе)
     
@@ -30,8 +36,12 @@ function fillBag(balls, capacity) {
     return bag;
 }
 
-// Пример использования
-const balls = [20, 10, 30, 10, 6];
-const capacity = 14;
+// Ввод данных через prompt
+const balls = prompt("Введите количество шаров разных цветов через запятую:").split(",").map(Number);
+const capacity = Number(prompt("Введите вместимость мешка:"));
+
+// Получаем результат
 const result = fillBag(balls, capacity);
-console.log(result);
+
+// Вывод результата через alert
+alert("Шары, которые взял грабитель: " + result.join(", "));
